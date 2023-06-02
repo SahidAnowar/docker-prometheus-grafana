@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: your-flask-image:tag
+          image: brainstrom/python-flask:5.0
           ports:
             - containerPort: 5000
 ---
