@@ -137,4 +137,4 @@ data:
           target_label: kubernetes_name
       - job_name: 'countHTTPresuests'
         static_configs:
-        - targets: ['0.0.0.0:5000']
+        - targets: ['0.0.0.0:80']
