@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-
+from prometheus_client import Counter
 app = Flask(__name__)
 
 # In-memory data store
@@ -9,16 +9,20 @@ books = [
     {"id": 3, "title": "Book 3", "author": "Author 3"}
 ]
 
+# Create a counter metrics
+requestsTotal = Counter('http_requests_total', 'Total Number of HTTP Requests')
 
 # Route to get all books
 @app.route('/books', methods=['GET'])
 def get_books():
+    requestsTotal.inc()
     return jsonify(books)
 
 
 # Route to get a specific book by ID
 @app.route('/books/<int:book_id>', methods=['GET'])
 def get_book(book_id):
+    requestsTotal.inc()
     for book in books:
         if book['id'] == book_id:
             return jsonify(book)
@@ -28,6 +32,7 @@ def get_book(book_id):
 # Route to create a new book
 @app.route('/books', methods=['POST'])
 def create_book():
+    requestsTotal.inc()
     new_book = {
         'id': len(books) + 1,
         'title': request.json['title'],
@@ -40,6 +45,7 @@ def create_book():
 # Route to update an existing book
 @app.route('/books/<int:book_id>', methods=['PUT'])
 def update_book(book_id):
+    requestsTotal.inc()
     for book in books:
         if book['id'] == book_id:
             book['title'] = request.json['title']
@@ -51,6 +57,7 @@ def update_book(book_id):
 # Route to delete a book
 @app.route('/books/<int:book_id>', methods=['DELETE'])
 def delete_book(book_id):
+    requestsTotal.inc()
     for book in books:
         if book['id'] == book_id:
             books.remove(book)
