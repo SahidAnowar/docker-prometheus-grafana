@@ -1,0 +1,5 @@
+to get the nodeport ip - kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}'
+
+To find the NodePort assigned to the Service - kubectl get svc <service-name> -o jsonpath='{.spec.ports[0].nodePort}'
+
+to get the loadbalancer ip 

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-app
-        image: brainstrom/python-flask:3.0
+        image: brainstrom/python-flask:4.0
         ports:
         - containerPort: 5000
 ---
