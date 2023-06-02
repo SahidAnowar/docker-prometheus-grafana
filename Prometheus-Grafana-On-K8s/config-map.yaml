@@ -135,6 +135,8 @@ data:
         - source_labels: [__meta_kubernetes_service_name]
           action: replace
           target_label: kubernetes_name
-      - job_name: 'countHTTPresuests'
+      - job_name: 'myapp'
         static_configs:
-        - targets: ['0.0.0.0:80']
+          - targets: ['flask-app-service:5000']
+        metrics_path: /metrics
+        scheme: http
